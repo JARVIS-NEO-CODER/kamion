@@ -1,0 +1,98 @@
+[
+  {
+    "id": "skin-perso",
+    "name": "Skin perso — ton camion, ta peinture",
+    "type": "digital",
+    "price": "15 €",
+    "status": "dispo",
+    "desc": "Une skin complète peinte à la main sur ton camion au choix (Scania, Volvo, MAN, DAF...). Tu décris, on livre."
+  },
+  {
+    "id": "tuning-custom",
+    "name": "Tuning custom",
+    "type": "digital",
+    "price": "10 €",
+    "status": "dispo",
+    "desc": "Phares, feux, plaques, accessoires : on règle ton camion pour qu'il ressemble à toi."
+  },
+  {
+    "id": "pack-complet",
+    "name": "Pack complet skin + tuning",
+    "type": "digital",
+    "price": "25 €",
+    "status": "dispo",
+    "desc": "La skin, le tuning et la plaque assortis. Le combo complet, prêt à rouler."
+  },
+  {
+    "id": "skin-template",
+    "name": "Skin à la demande sur template",
+    "type": "digital",
+    "price": "12 €",
+    "status": "dispo",
+    "desc": "Tu envoies une idée ou une image, on la transpose sur un template propre, prête à installer."
+  },
+  {
+    "id": "guide-premiere-skin",
+    "name": "Guide PDF « Ma première skin ETS2 »",
+    "type": "digital",
+    "price": "5 €",
+    "status": "dispo",
+    "desc": "Le guide pas à pas : de GIMP au jeu, sans jargon. Pour apprendre à faire tes propres skins."
+  },
+  {
+    "id": "preset-couleurs",
+    "name": "Preset couleurs GIMP",
+    "type": "digital",
+    "price": "4 €",
+    "status": "dispo",
+    "desc": "Les réglages de couleurs utilisés pour les skins KAMION, prêts à charger dans GIMP."
+  },
+  {
+    "id": "drop-led",
+    "name": "Bande LED USB ambre — setup camion",
+    "type": "physique",
+    "price": "12,90 €",
+    "status": "précommande",
+    "desc": "L'ambiance cabine dans ta chambre. Bande LED USB, longueur 2 m, couleur ambre KAMION."
+  },
+  {
+    "id": "drop-tapis",
+    "name": "Tapis de souris XXL gaming",
+    "type": "physique",
+    "price": "19,90 €",
+    "status": "précommande",
+    "desc": "Format XXL (900 × 400 mm), bord cousu, motif route de nuit KAMION."
+  },
+  {
+    "id": "drop-stickers",
+    "name": "Pack stickers KAMION",
+    "type": "physique",
+    "price": "6,90 €",
+    "status": "précommande",
+    "desc": "10 stickers vinyle résistants : logo, convoi, routes. Pour le setup, la caisse, partout."
+  },
+  {
+    "id": "drop-porte-cles",
+    "name": "Porte-clés métal camion",
+    "type": "physique",
+    "price": "7,90 €",
+    "status": "précommande",
+    "desc": "Petit camion en métal massif, finition brossée. Grave à l'arrière sur demande."
+  },
+  {
+    "id": "drop-porte-telephone",
+    "name": "Support téléphone pour volant",
+    "type": "physique",
+    "price": "9,90 €",
+    "status": "précommande",
+    "desc": "Support universel qui se clipse sur le volant ou le bureau : télémétrie et GPS à portée d'œil."
+  },
+  {
+    "id": "drop-ventilateur",
+    "name": "Mini ventilateur USB dashboard",
+    "type": "physique",
+    "price": "14,90 €",
+    "status": "précommande",
+    "desc": "Silencieux, inclinable, USB. Le petit détail qui change les longues sessions."
+  }
+]
