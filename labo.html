@@ -4,27 +4,136 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Le Labo — TOUTIC</title>
-<meta name="description" content="Les outils utiles réunis au même endroit : convertisseurs, trackers, générateurs, templates. Gratuits, sans compte.">
+<meta name="description" content="Des outils gratuits et sans compte : convertisseurs, minuteur, générateur de mot de passe, todo, calculs. Tout au même endroit.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<nav><div class="wrap"><a class="logo" href="index.html">TOUT<span>IC</span></a><a class="navlink" href="index.html">Accueil</a><a class="navlink" href="boutique.html">Boutique</a><a class="navlink" href="labo.html">Le Labo</a><a class="navlink" href="club.html">Le Club</a></div></nav>
-<header class="hero2"><img src="img/labo.png" alt="Illustration d'outils et de widgets"><div class="wrap"><div class="kicker">Branche 02</div><h2>Le Labo</h2></div></header>
-<section><div class="wrap">
-<p class="tag">Les outils qu'on installe partout ailleurs, réunis au même endroit. Gratuits, sans compte, sans pub. Ils arrivent un par un — dis-moi celui qui te manque en premier.</p>
-<div class="branches" style="margin-top:26px">
-<div class="branch"><div class="num">01</div><h3>Convertisseur d'unités</h3><p>Longueurs, poids, devises, températures : tape, c'est converti.</p><span class="tagpill">bientôt</span></div>
-<div class="branch"><div class="num">02</div><h3>Générateur de mots de passe</h3><p>Un mot de passe solide en un clic, stocké nulle part.</p><span class="tagpill">bientôt</span></div>
-<div class="branch"><div class="num">03</div><h3>Minuteur Pomodoro</h3><p>25 minutes de focus, 5 de pause. Pour les devoirs comme pour les projets.</p><span class="tagpill">bientôt</span></div>
-<div class="branch"><div class="num">04</div><h3>Tracker d'habitudes</h3><p>Coche ta journée, vois ta série grandir.</p><span class="tagpill">bientôt</span></div>
-<div class="branch"><div class="num">05</div><h3>Générateur de couleurs</h3><p>Des palettes prêtes pour tes designs, tes logos, tes fonds d'écran.</p><span class="tagpill">bientôt</span></div>
-<div class="branch"><div class="num">06</div><h3>Template budget</h3><p>Un tableau simple : ce qui rentre, ce qui sort, ce qui reste.</p><span class="tagpill">bientôt</span></div>
-<div class="branch"><div class="num">07</div><h3>Générateur de pseudos</h3><p>Bloqué sur un nom ? Des idées selon ton style.</p><span class="tagpill">bientôt</span></div>
-<div class="branch"><div class="num">08</div><h3>Convertisseur d'images</h3><p>PNG, JPG, WEBP : glisse, reçois, c'est tout.</p><span class="tagpill">bientôt</span></div>
+<nav><div class="wrap">
+ <a class="logo" href="/">TOUTIC<span>.</span></a>
+ <button id="menuBtn" aria-label="Menu">☰</button>
+ <div class="navlinks" id="navlinks">
+  <a href="/">Accueil</a>
+  <a href="boutique.html">Boutique</a>
+  <a href="labo.html" class="on">Le Labo</a>
+  <a href="club.html">Le Club</a>
+  <a href="admin.html">Admin</a>
+ </div>
+</div></nav>
+
+<header class="hero2">
+ <img src="img/labo.png" alt="">
+ <div class="wrap">
+  <p class="kicker">Le Labo</p>
+  <h2>Huit outils gratuits, <em>zéro compte</em></h2>
+ </div>
+</header>
+
+<main class="wrap">
+<section>
+<p class="lead">Tout marche direct dans ton navigateur, rien n'est envoyé nulle part. Un seul endroit au lieu de dix onglets.</p>
+<div class="tools">
+
+<div class="tool">
+ <h3>Convertisseur</h3>
+ <p class="hint">Longueur, poids ou température, dans les deux sens.</p>
+ <div class="mini"><input id="cvVal" type="number" step="any" placeholder="Valeur"><select id="cvFrom"><option>m</option><option>km</option><option>mi</option><option>ft</option><option>kg</option><option>lb</option><option>°C</option><option>°F</option></select><span>→</span><select id="cvTo"><option>m</option><option>km</option><option>mi</option><option>ft</option><option>kg</option><option>lb</option><option>°C</option><option>°F</option></select></div>
+ <div class="out" id="cvOut">—</div>
 </div>
-</div></section>
-<footer><div class="wrap">© 2026 TOUTIC. Tous droits réservés.</div></footer>
+
+<div class="tool">
+ <h3>Minuteur focus (25 min)</h3>
+ <p class="hint">Le classique travail / pause : 25 minutes de focus, 5 de pause.</p>
+ <div class="out" id="tmOut">25:00</div>
+ <div class="mini"><button class="btn small" id="tmGo">Démarrer</button><button class="btn ghost small" id="tmReset">Reset</button></div>
+</div>
+
+<div class="tool">
+ <h3>Générateur de mot de passe</h3>
+ <p class="hint">Solide, aléatoire, généré chez toi (rien ne part sur le net).</p>
+ <label for="pwLen">Longueur : <span id="pwLenV">16</span></label>
+ <input id="pwLen" type="range" min="8" max="40" value="16" oninput="pwLenV.textContent=this.value">
+ <div class="mini"><button class="btn small" id="pwGo">Générer</button><button class="btn ghost small" id="pwCopy">Copier</button></div>
+ <div class="out" id="pwOut">—</div>
+</div>
+
+<div class="tool">
+ <h3>Compteur de mots</h3>
+ <p class="hint">Pour la dissertation qui doit faire 800 mots.</p>
+ <textarea id="wcIn" placeholder="Colle ton texte ici…"></textarea>
+ <div class="out" id="wcOut">0 mots · 0 caractères</div>
+</div>
+
+<div class="tool">
+ <h3>Moyenne de tes notes</h3>
+ <p class="hint">Notes sur 20, une par une.</p>
+ <div class="mini"><input id="grIn" type="number" min="0" max="20" step="0.5" placeholder="Note /20"><button class="btn small" id="grAdd">Ajouter</button></div>
+ <div class="out" id="grOut">Aucune note. Moyenne : —</div>
+</div>
+
+<div class="tool">
+ <h3>Ma to-do du jour</h3>
+ <p class="hint">Sauvegardée dans ton navigateur.</p>
+ <div class="mini"><input id="tdIn" placeholder="Une chose à faire"><button class="btn small" id="tdAdd">Ajouter</button></div>
+ <ul class="todo" id="tdList"></ul>
+</div>
+
+<div class="tool">
+ <h3>Calculateur de dates</h3>
+ <p class="hint">Ton âge exact, ou un délai : « 30 jours après le 24/11 ».</p>
+ <div class="mini"><input id="dtIn" type="date"><button class="btn small" id="dtAge">Mon âge</button><button class="btn small" id="dt30">+30 jours</button></div>
+ <div class="out" id="dtOut">—</div>
+</div>
+
+<div class="tool">
+ <h3>Dé &amp; pile ou face</h3>
+ <p class="hint">Pour trancher un débat de façon 100 % scientifique.</p>
+ <div class="mini"><button class="btn small" id="diceGo">🎲 Dé</button><button class="btn small" id="coinGo">🪙 Pile ou face</button><button class="btn small" id="numGo">1-100</button></div>
+ <div class="out" id="rnOut">—</div>
+</div>
+
+</div>
+</section>
+</main>
+
+<footer><div class="wrap">
+ <a href="/">Accueil</a><a href="boutique.html">Boutique</a><a href="labo.html">Le Labo</a><a href="club.html">Le Club</a><a href="admin.html">Espace admin</a>
+ <p>© 2026 TOUTIC. Tout est là.</p>
+</div></footer>
+<script src="script.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+function conv(v,f,t){
+ const L={m:1,km:1000,mi:1609.344,ft:0.3048},W={kg:1,lb:0.45359237};
+ if(L[f]!==undefined&&L[t]!==undefined)return v*L[f]/L[t]+' '+(t==='m'?'m':t);
+ if(W[f]!==undefined&&W[t]!==undefined)return (v*W[f]/W[t]).toFixed(2)+' '+(t==='kg'?'kg':'lb');
+ if(f==='°C'&&t==='°F')return (v*9/5+32).toFixed(1)+' °F';
+ if(f==='°F'&&t==='°C')return ((v-32)*5/9).toFixed(1)+' °C';
+ return 'Choisis deux unités compatibles';
+}
+['cvVal','cvFrom','cvTo'].forEach(id=>$(id).addEventListener('input',()=>{const v=parseFloat($('cvVal').value);$('cvOut').textContent=isNaN(v)?'—':conv(v,$('cvFrom').value,$('cvTo').value);}));
+let tmT=null,tmS=1500;
+function tmPaint(){const m=Math.floor(tmS/60),s=tmS%60;$('tmOut').textContent=m+':'+String(s).padStart(2,'0');}
+$('tmGo').addEventListener('click',()=>{if(tmT){clearInterval(tmT);tmT=null;$('tmGo').textContent='Reprendre';}else{$('tmGo').textContent='Pause';tmT=setInterval(()=>{if(tmS<=0){clearInterval(tmT);tmT=null;$('tmGo').textContent='Démarrer';try{new AudioContext().resume().then(()=>{const o=new AudioContext(),g=o.createGain(),s=o.createOscillator();s.connect(g);g.connect(o.destination);s.frequency.value=880;g.gain.setValueAtTime(.2,o.currentTime);s.start();s.stop(o.currentTime+.6);});}catch(e){}return;}tmS--;tmPaint();},1000);}});
+$('tmReset').addEventListener('click',()=>{clearInterval(tmT);tmT=null;tmS=1500;tmPaint();$('tmGo').textContent='Démarrer';});
+const PW='abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%&*?';
+$('pwGo').addEventListener('click',()=>{const n=+$('pwLen').value;let a=new Uint32Array(n);crypto.getRandomValues(a);$('pwOut').textContent=Array.from(a,x=>PW[x%PW.length]).join('');});
+$('pwCopy').addEventListener('click',()=>navigator.clipboard.writeText($('pwOut').textContent).then(()=>toast('Copié !')));
+$('wcIn').addEventListener('input',()=>{const t=$('wcIn').value.trim();$('wcOut').textContent=(t?t.split(/\s+/).length:0)+' mots · '+t.length+' caractères';});
+let grades=[];
+$('grAdd').addEventListener('click',()=>{const v=parseFloat($('grIn').value);if(isNaN(v)||v<0||v>20)return;grades.push(v);$('grIn').value='';const m=grades.reduce((a,b)=>a+b,0)/grades.length;$('grOut').textContent=grades.length+' note(s). Moyenne : '+m.toFixed(2)+'/20';});
+let todos=JSON.parse(localStorage.getItem('toutic-todo')||'[]');
+function tdPaint(){$('tdList').innerHTML='';todos.forEach((t,i)=>{const li=document.createElement('li');if(t.d)li.className='done';li.innerHTML='<input type="checkbox" '+(t.d?'checked':'')+' data-i="'+i+'"><span>'+t.t+'</span><button data-del="'+i+'">✕</button>';$('tdList').appendChild(li);});localStorage.setItem('toutic-todo',JSON.stringify(todos));}
+$('tdAdd').addEventListener('click',()=>{const v=$('tdIn').value.trim();if(!v)return;todos.push({t:v,d:false});$('tdIn').value='';tdPaint();});
+$('tdList').addEventListener('click',e=>{if(e.target.dataset.del!==undefined){todos.splice(+e.target.dataset.del,1);tdPaint();}if(e.target.dataset.i!==undefined){todos[+e.target.dataset.i].d=e.target.checked;tdPaint();}});
+tdPaint();
+$('dtAge').addEventListener('click',()=>{const d=new Date($('dtIn').value);if(isNaN(d)){$('dtOut').textContent='Choisis une date';return;}const n=new Date();let a=n.getFullYear()-d.getFullYear();if(n.getMonth()<d.getMonth()||(n.getMonth()===d.getMonth()&&n.getDate()<d.getDate()))a--;$('dtOut').textContent=a+' ans ('+Math.floor((n-d)/864e5)+' jours)';});
+$('dt30').addEventListener('click',()=>{const d=new Date($('dtIn').value||new Date());d.setDate(d.getDate()+30);$('dtOut').textContent=d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});});
+$('diceGo').addEventListener('click',()=>$('rnOut').textContent='🎲 '+ (1+Math.floor(Math.random()*6)));
+$('coinGo').addEventListener('click',()=>$('rnOut').textContent=Math.random()<.5?'🪙 Pile':'🪙 Face');
+$('numGo').addEventListener('click',()=>$('rnOut').textContent='1-100 : '+ (1+Math.floor(Math.random()*100)));
+</script>
 </body>
 </html>

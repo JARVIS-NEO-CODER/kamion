@@ -4,31 +4,79 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>La Boutique — TOUTIC</title>
-<meta name="description" content="Produits viraux de partout : tech, déco, gaming, mode, digital. Nouveautés tous les 2 jours. Tout le monde peut vendre sur TOUTIC.">
+<meta name="description" content="Produits viraux de partout : tech, déco, gaming, digital. Nouveautés tous les 2 jours. Tout le monde peut vendre sur TOUTIC.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<nav><div class="wrap"><a class="logo" href="index.html">TOUT<span>IC</span></a><a class="navlink" href="index.html">Accueil</a><a class="navlink" href="boutique.html">Boutique</a><a class="navlink" href="labo.html">Le Labo</a><a class="navlink" href="club.html">Le Club</a></div></nav>
-<header class="hero2"><img src="img/boutique.png" alt="Étalage de produits viraux"><div class="wrap"><div class="kicker">Branche 01</div><h2>La Boutique</h2></div></header>
-<section><div class="wrap">
-<p class="tag">Des produits viraux repérés un peu partout : tech, déco, gaming, mode, beauté, digital. De nouveaux produits arrivent tous les 2 jours. Et n'importe qui peut vendre ici : propose ton produit, et la communauté crée même ses propres catégories.</p>
-<div class="filters">
-<button class="chip on" data-filter="all">Tout</button>
-<button class="chip" data-filter="digital">Digital</button>
-<button class="chip" data-filter="physique">Physique</button>
+<nav><div class="wrap">
+ <a class="logo" href="/">TOUTIC<span>.</span></a>
+ <button id="menuBtn" aria-label="Menu">☰</button>
+ <div class="navlinks" id="navlinks">
+  <a href="/" class="on">Accueil</a>
+  <a href="boutique.html">Boutique</a>
+  <a href="labo.html">Le Labo</a>
+  <a href="club.html">Le Club</a>
+  <a href="admin.html">Admin</a>
+  <a href="boutique.html" id="cartLink">Panier (0)</a>
+ </div>
+</div></nav>
+
+<header class="hero2">
+ <img src="img/boutique.png" alt="">
+ <div class="wrap">
+  <p class="kicker">La boutique</p>
+  <h2>Produits viraux, <em>prix cash</em></h2>
+ </div>
+</header>
+
+<main class="wrap">
+ <section>
+  <p class="lead">On envoie un email de confirmation à chaque commande. Le paiement PayPal arrive bientôt : en attendant, tu reçois un email et on règle ça ensemble.</p>
+  <div class="chips">
+   <button class="chip on" data-filter="all">Tout</button>
+   <button class="chip" data-filter="Tech">Tech</button>
+   <button class="chip" data-filter="Déco">Déco</button>
+   <button class="chip" data-filter="Gaming">Gaming</button>
+   <button class="chip" data-filter="Digital & Créa">Digital</button>
+  </div>
+  <div class="grid" id="grid"></div>
+ </section>
+ <section>
+  <h3>Tu vends un truc qui déchire ?</h3>
+  <p class="lead">La boutique est ouverte à tous : propose ton produit, la communauté vote, et s'il cartonne on le met en devant.</p>
+  <a class="btn" href="club.html">Proposer au Club</a>
+ </section>
+</main>
+
+<div id="modal" role="dialog" aria-modal="true">
+ <div class="box">
+  <h3>Commande</h3>
+  <img id="orderImg" alt="" style="width:100%;border-radius:10px;margin:8px 0;display:none">
+  <div class="row"><b id="orderName"></b><span class="price" id="orderPrice"></span></div>
+  <p class="sub">Paiement PayPal bientôt actif. En attendant, ton email sert de réservation : on te contacte pour finaliser.</p>
+  <form id="orderForm" name="commandes" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+   <input type="hidden" name="form-name" value="commandes">
+   <p class="hidden"><label>Ne pas remplir : <input name="bot-field"></label></p>
+   <label for="f-prenom">Prénom</label>
+   <input id="f-prenom" name="prenom" required autocomplete="given-name">
+   <label for="f-email">Email</label>
+   <input id="f-email" name="email" type="email" required autocomplete="email">
+   <button class="btn wide" type="submit">Envoyer ma commande</button>
+  </form>
+  <button class="btn ghost wide" id="closeModal" style="margin-top:10px">Annuler</button>
+ </div>
 </div>
-<div class="grid" id="grid"></div>
-<div class="notice">Derniers produits ajoutés le 24 nov · nouveaux drops tous les 2 jours. Paiement PayPal bientôt actif ici même. En attendant, clique « Commander » et on arrange ça sur Discord.</div>
-<h2 style="margin-top:48px">Vendre sur TOUTIC</h2>
-<div class="branches" style="margin-top:26px">
-<div class="branch"><div class="num">01</div><h3>Propose ton produit</h3><p>Physique ou digital, neuf ou fait main : envoie ta fiche (photo, prix, description) sur Discord.</p></div>
-<div class="branch"><div class="num">02</div><h3>Choisis ta catégorie</h3><p>Elle existe déjà ? Parfait. Elle n'existe pas ? La communauté en crée une nouvelle, c'est le principe.</p></div>
-<div class="branch"><div class="num">03</div><h3>Vends</h3><p>Ton produit rejoint la boutique, visible par tout le monde. PayPal arrive pour encaisser direct.</p></div>
-</div>
-</div></section>
+
+<div id="toast"></div>
+
+<footer><div class="wrap">
+ <a href="/">Accueil</a><a href="boutique.html">Boutique</a><a href="labo.html">Le Labo</a><a href="club.html">Le Club</a><a href="admin.html">Espace admin</a>
+ <p>© 2026 TOUTIC. Tout est là.</p>
+</div></footer>
 <script src="script.js"></script>
-<footer><div class="wrap">© 2026 TOUTIC. Tous droits réservés.</div></footer>
+<script>loadProducts();</script>
 </body>
 </html>

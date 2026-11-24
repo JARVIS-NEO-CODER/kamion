@@ -1,110 +1,14 @@
 [
-  {
-    "id": "pack-50-presets",
-    "name": "Pack 50 presets photo « Ciné »",
-    "type": "digital",
-    "cat": "Digital & Créa",
-    "price": "6,90 €",
-    "status": "dispo",
-    "desc": "50 presets pour Lightroom et GIMP qui donnent un look cinéma à tes photos en un clic."
-  },
-  {
-    "id": "pack-templates-cv",
-    "name": "Pack templates CV & Canva (20)",
-    "type": "digital",
-    "cat": "Digital & Créa",
-    "price": "4,90 €",
-    "status": "dispo",
-    "desc": "20 modèles de CV et presentation modifiables dans Canva, du plus sobre au plus osé."
-  },
-  {
-    "id": "ebook-produits-viraux",
-    "name": "Guide « Repérer les produits viraux »",
-    "type": "digital",
-    "cat": "Digital & Créa",
-    "price": "9,90 €",
-    "status": "dispo",
-    "desc": "La méthode pas à pas pour trouver ce qui explose sur les réseaux avant tout le monde."
-  },
-  {
-    "id": "pack-100-wallpapers",
-    "name": "Pack 100 wallpapers 4K",
-    "type": "digital",
-    "cat": "Digital & Créa",
-    "price": "2,90 €",
-    "status": "dispo",
-    "desc": "100 fonds d'écran 4K : dark tech, néon, paysages. Pour PC, tablette et téléphone."
-  },
-  {
-    "id": "lampe-levitation",
-    "name": "Lampe lune en lévitation",
-    "type": "physique",
-    "cat": "Maison & Déco",
-    "price": "24,90 €",
-    "status": "précommande",
-    "desc": "La lune qui flotte et tourne au-dessus de sa base. L'objet déco le plus filmé de TikTok."
-  },
-  {
-    "id": "mini-projecteur",
-    "name": "Mini projecteur portable HD",
-    "type": "physique",
-    "cat": "Tech & Gadgets",
-    "price": "39,90 €",
-    "status": "précommande",
-    "desc": "Un vrai home cinéma dans la poche : Wi-Fi, HDMI, jusqu'à 1080p. Soirées et plafond de chambre."
-  },
-  {
-    "id": "bande-led-rgb",
-    "name": "Bande LED RGB 5 m + télécommande",
-    "type": "physique",
-    "cat": "Tech & Gadgets",
-    "price": "12,90 €",
-    "status": "précommande",
-    "desc": "L'indispensable du setup : 5 m de LED RGB, 16 millions de couleurs, collée en deux minutes."
-  },
-  {
-    "id": "coussin-peluche",
-    "name": "Coussin peluche géant (120 cm)",
-    "type": "physique",
-    "cat": "Maison & Déco",
-    "price": "19,90 €",
-    "status": "précommande",
-    "desc": "Le fameux coussin nuage en peluche ultra douce, format géant. Chambre et canapé."
-  },
-  {
-    "id": "tapis-xxl",
-    "name": "Tapis de souris XXL gaming",
-    "type": "physique",
-    "cat": "Gaming",
-    "price": "14,90 €",
-    "status": "précommande",
-    "desc": "900 × 400 mm, bord cousu, base antidérapante. Clavier + souris sur un seul tapis."
-  },
-  {
-    "id": "stickers-neon",
-    "name": "Stickers muraux néon personnalisés",
-    "type": "physique",
-    "cat": "Maison & Déco",
-    "price": "9,90 €",
-    "status": "précommande",
-    "desc": "Ton texte ou ton pseudo en faux néon à coller au mur. Sans fil, sans electricien."
-  },
-  {
-    "id": "mini-ventilo",
-    "name": "Mini ventilateur USB silencieux",
-    "type": "physique",
-    "cat": "Tech & Gadgets",
-    "price": "8,90 €",
-    "status": "précommande",
-    "desc": "Silencieux, inclinable, USB. Le détail qui change les longues sessions de jeu ou de devoirs."
-  },
-  {
-    "id": "porte-cles-localisateur",
-    "name": "Porte-clés localisateur Bluetooth",
-    "type": "physique",
-    "cat": "Tech & Gadgets",
-    "price": "11,90 €",
-    "status": "précommande",
-    "desc": "Tu perds tout ? Sonne depuis ton téléphone et retrouve tes clés en 10 secondes."
-  }
+ {"id":"pack-50-presets","name":"Pack 50 presets photo « Ciné »","type":"digital","cat":"Digital & Créa","price":"6,90 €","status":"Livraison instantanée","desc":"50 presets Lightroom et GIMP pour un look cinéma en un clic sur tes photos."},
+ {"id":"pack-templates-cv","name":"Pack 20 templates CV (Canva)","type":"digital","cat":"Digital & Créa","price":"4,90 €","status":"Livraison instantanée","desc":"20 modèles de CV modifiables dans Canva, du plus sobre au plus osé."},
+ {"id":"ebook-produits-viraux","name":"Guide « Repérer les produits viraux »","type":"digital","cat":"Digital & Créa","price":"9,90 €","status":"Livraison instantanée","desc":"La méthode complète pour trouver les produits qui cartonnent avant tout le monde."},
+ {"id":"pack-100-wallpapers","name":"Pack 100 wallpapers 4K","type":"digital","cat":"Digital & Créa","price":"2,90 €","status":"Livraison instantanée","desc":"100 fonds d'écran 4K triés : néons, paysages, gaming, minimaliste."},
+ {"id":"lampe-levitation","name":"Lampe globe en lévitation","type":"physical","cat":"Tech","price":"24,90 €","status":"En stock","desc":"Un globe qui flotte et brille au-dessus de sa base. Effet garanti dans ta chambre.","img":"img/lampe.jpg"},
+ {"id":"mini-projecteur","name":"Mini projecteur « Aurora »","type":"physical","cat":"Tech","price":"39,90 €","status":"En stock","desc":"Un vrai cinéma dans ta poche : branche-le au téléphone et projette jusqu'à 100 pouces.","img":"img/projecteur.jpg"},
+ {"id":"bande-led-rgb","name":"Bande LED RGB 5 m","type":"physical","cat":"Déco","price":"12,90 €","status":"En stock","desc":"5 mètres de LED pilotables : 16 millions de couleurs, télécommande incluse.","img":"img/led.jpg"},
+ {"id":"coussin-peluche","name":"Coussin peluche chat XXL","type":"physical","cat":"Déco","price":"19,90 €","status":"En stock","desc":"Le chat géant ultra doux qui rend n'importe quel canapé plus chaleureux.","img":"img/coussin.jpg"},
+ {"id":"tapis-xxl","name":"Tapis gaming XXL néon","type":"physical","cat":"Gaming","price":"14,90 €","status":"En stock","desc":"Tapis de bureau XXL avec motif néon géométrique. Clavier, souris, tasses : tout tient.","img":"img/tapis.jpg"},
+ {"id":"stickers-neon","name":"Stickers muraux néon phosphorescents","type":"physical","cat":"Déco","price":"9,90 €","status":"En stock","desc":"Des stickers qui brillent la nuit : déco ta chambre en 10 minutes, sans outils.","img":"img/stickers.jpg"},
+ {"id":"mini-ventilo","name":"Mini ventilateur de bureau","type":"physical","cat":"Tech","price":"8,90 €","status":"En stock","desc":"Silencieux, inclinable, rechargeable : le vent frais qui suit ton setup partout.","img":"img/ventilo.jpg"},
+ {"id":"porte-cles-localisateur","name":"Porte-clés localisateur Bluetooth","type":"physical","cat":"Tech","price":"11,90 €","status":"En stock","desc":"Tu ne perduras plus jamais tes clés : sonne via l'app et localise-les sur une carte.","img":"img/porte-cles.jpg"}
 ]

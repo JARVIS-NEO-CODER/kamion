@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Espace admin — TOUTIC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav><div class="wrap">
+ <a class="logo" href="/">TOUTIC<span>.</span></a>
+ <button id="menuBtn" aria-label="Menu">☰</button>
+ <div class="navlinks" id="navlinks">
+  <a href="/">Accueil</a>
+  <a href="boutique.html">Boutique</a>
+  <a href="labo.html">Le Labo</a>
+  <a href="club.html">Le Club</a>
+ </div>
+</div></nav>
+
+<main class="wrap adminwrap" id="loginArea">
+ <div class="loginbox">
+  <h2 style="font-size:30px">Espace admin</h2>
+  <p class="lead center">Réservé à l'équipe TOUTIC. Connecte-toi avec le compte admin (carlsoquet@gmail.com).</p>
+  <button class="btn wide" id="idOpen">Se connecter</button>
+  <p class="note" id="idErr" style="margin-top:10px"></p>
+ </div>
+</main>
+
+<main class="wrap adminwrap hidden" id="dash">
+ <section style="padding-top:28px">
+  <div class="row" style="align-items:flex-start">
+   <div><p class="kicker">Espace admin</p><h2 style="font-size:34px">Tableau de bord</h2></div>
+   <button class="btn ghost small" id="logout">Déconnexion</button>
+  </div>
+  <div class="stats">
+   <div class="stat"><b id="stProd">—</b><span>Produits</span></div>
+   <div class="stat"><b id="stCat">—</b><span>Catégories</span></div>
+   <div class="stat"><b>8</b><span>Outils au Labo</span></div>
+   <div class="stat"><b>3</b><span>Défis ouverts</span></div>
+  </div>
+  <h3>Les produits</h3>
+  <table class="pt"><tbody id="prodRows"></tbody></table>
+  <h3 style="margin-top:26px">Ajouter un produit</h3>
+  <form name="nouveau-produit" method="POST" data-netlify="true" style="max-width:560px">
+   <input type="hidden" name="form-name" value="nouveau-produit">
+   <label for="np-nom">Nom du produit</label><input id="np-nom" name="nom" required>
+   <label for="np-cat">Catégorie (Tech, Déco, Gaming, Mode, Digital & Créa…)</label><input id="np-cat" name="categorie" required>
+   <label for="np-prix">Prix</label><input id="np-prix" name="prix" required placeholder="19,90 €">
+   <label for="np-desc">Description</label><textarea id="np-desc" name="description" required></textarea>
+   <button class="btn wide" type="submit">Envoyer la demande</button>
+   <p class="note">La demande part par email à l'admin, le produit est ajouté à la boutique ensuite.</p>
+  </form>
+  <h3 style="margin-top:26px">Messages &amp; demandes</h3>
+  <p class="note">Commandes, idées du mur et demandes produits arrivent par email à l'admin, et sont consultables dans le back-office Netlify : <a href="https://app.netlify.com/projects/toutic/forms">voir les formulaires</a>.</p>
+ </section>
+</main>
+
+<div id="toast"></div>
+<footer><div class="wrap"><p>© 2026 TOUTIC. Tout est là.</p></div></footer>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script src="script.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const ADMIN='carlsoquet@gmail.com';
+function showDash(u){
+ $('loginArea').classList.add('hidden');$('dash').classList.remove('hidden');
+ fetch('products.json').then(r=>r.json()).then(items=>{
+  $('stProd').textContent=items.length;
+  $('stCat').textContent=new Set(items.map(p=>p.cat)).size;
+  $('prodRows').innerHTML=items.map(p=>'<tr><td>'+(p.img?'<img src="'+p.img+'" alt="">':'—')+'</td><td>'+p.name+'</td><td>'+p.cat+'</td><td>'+p.price+'</td></tr>').join('');
+ });
+}
+if(window.netlifyIdentity){
+ netlifyIdentity.on('init',u=>{if(u)showDash(u);});
+ netlifyIdentity.on('login',u=>{if(u&&u.email===ADMIN){showDash(u);}else if(u){$('idErr').textContent="Ce compte n'est pas admin. Utilise carlsoquet@gmail.com.";netlifyIdentity.logout();}});
+ netlifyIdentity.on('error',err=>{$('idErr').textContent='Connexion impossible : '+(err&&err.message?err.message:'réessaie');});
+ $('idOpen').addEventListener('click',()=>netlifyIdentity.open());
+ $('logout').addEventListener('click',()=>{netlifyIdentity.logout();$('dash').classList.add('hidden');$('loginArea').classList.remove('hidden');});
+}
+</script>
+</body>
+</html>
