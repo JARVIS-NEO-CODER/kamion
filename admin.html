@@ -24,9 +24,9 @@
 <main class="wrap adminwrap" id="loginArea">
  <div class="loginbox">
   <h2 style="font-size:30px">Espace admin</h2>
-  <p class="lead center">Réservé à l'équipe TOUTIC. Connecte-toi avec le compte admin (carlsoquet@gmail.com).</p>
+  <p class="lead center">Réservé à l'équipe TOUTIC. Connecte-toi avec le compte admin de l'équipe.</p>
   <button class="btn wide" id="idOpen">Se connecter</button>
-  <p class="note center" style="margin-top:14px;line-height:1.6">Première fois ? Ouvre le mail « You've been invited to join toutic.netlify.app » dans ta boîte Gmail et clique le lien pour créer ton mot de passe admin. Ensuite ce bouton marche direct.</p>
+  <p class="note center" style="margin-top:14px;line-height:1.6">Première fois ? Ouvre le mail d'invitation (celui du site TOUTIC) dans ta boîte et clique le lien pour créer ton mot de passe admin. Ensuite ce bouton marche direct.</p>
   <p class="note" id="idErr" style="margin-top:10px"></p>
  </div>
 </main>
@@ -81,7 +81,7 @@
 <script src="script.js"></script>
 <script>
 const $=id=>document.getElementById(id);
-const ADMIN='carlsoquet@gmail.com';
+const ADMIN=atob('Y2FybHNvcXVldEBnbWFpbC5jb20=');
 function showDash(u){
  $('loginArea').classList.add('hidden');$('dash').classList.remove('hidden');
  fetch('products.json').then(r=>r.json()).then(items=>{
@@ -92,7 +92,7 @@ function showDash(u){
 }
 if(window.netlifyIdentity){
  netlifyIdentity.on('init',u=>{if(u)showDash(u);});
- netlifyIdentity.on('login',u=>{if(u&&u.email===ADMIN){showDash(u);}else if(u){$('idErr').textContent="Ce compte n'est pas admin. Utilise carlsoquet@gmail.com.";netlifyIdentity.logout();}});
+ netlifyIdentity.on('login',u=>{if(u&&u.email===ADMIN){showDash(u);}else if(u){$('idErr').textContent="Ce compte n'est pas admin.";netlifyIdentity.logout();}});
  netlifyIdentity.on('error',err=>{$('idErr').textContent='Connexion impossible : '+(err&&err.message?err.message:'réessaie');});
  $('idOpen').addEventListener('click',()=>netlifyIdentity.open());
  $('logout').addEventListener('click',()=>{netlifyIdentity.logout();$('dash').classList.add('hidden');$('loginArea').classList.remove('hidden');});
