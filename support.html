@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Support — TOUTIC</title>
+<meta name="description" content="Un souci avec une commande, un produit ou le site ? Ouvre un ticket, l'équipe TOUTIC te répond par email.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav><div class="wrap">
+ <a class="logo" href="/">TOUTIC<span>.</span></a>
+ <button id="menuBtn" aria-label="Menu">☰</button>
+ <div class="navlinks" id="navlinks">
+  <a href="/">Accueil</a>
+  <a href="boutique.html">Boutique</a>
+  <a href="labo.html">Le Labo</a>
+  <a href="club.html">Le Club</a>
+  <a href="admin.html">Admin</a>
+ </div>
+</div></nav>
+
+<header class="hero2" style="min-height:0;height:auto;padding:40px 0;background:linear-gradient(180deg,#191c22,#0c0d10)">
+ <div class="wrap">
+  <p class="kicker">Support</p>
+  <h2>Ouvre un ticket, <em>on te répond</em></h2>
+ </div>
+</header>
+
+<main class="wrap">
+<section>
+ <p class="lead">Commande, produit, idée, bug : tout passe par ici. Chaque ticket arrive directement à l'équipe, réponse par email.</p>
+ <form name="tickets" method="POST" data-netlify="true" style="max-width:560px">
+  <input type="hidden" name="form-name" value="tickets">
+  <p class="hidden"><label>Ne pas remplir : <input name="bot-field"></label></p>
+  <label for="tk-nom">Prénom ou pseudo</label>
+  <input id="tk-nom" name="nom" required>
+  <label for="tk-email">Email (pour la réponse)</label>
+  <input id="tk-email" name="email" type="email" required>
+  <label for="tk-objet">Sujet</label>
+  <select id="tk-objet" name="sujet">
+   <option>Ma commande</option>
+   <option>Un produit</option>
+   <option>Le Labo</option>
+   <option>Le Club</option>
+   <option>Un bug sur le site</option>
+   <option>Autre</option>
+  </select>
+  <label for="tk-msg">Ton message</label>
+  <textarea id="tk-msg" name="message" required></textarea>
+  <button class="btn wide" type="submit">Envoyer le ticket</button>
+ </form>
+</section>
+</main>
+
+<footer><div class="wrap">
+ <a href="/">Accueil</a><a href="boutique.html">Boutique</a><a href="labo.html">Le Labo</a><a href="club.html">Le Club</a><a href="admin.html">Espace admin</a>
+ <p>© 2026 TOUTIC. Tout est là.</p>
+</div></footer>
+<script src="script.js"></script>
+</body>
+</html>
