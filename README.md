@@ -1,14 +1,12 @@
-# KAMION
+# TOUTIC — Tout est là.
 
-Site de la marque KAMION : la Boutique (mods et produits), le Convoi (communauté gamers), le Dépôt (espace communautaire).
+Plateforme à trois branches, hors de tout univers de jeu :
 
-## Structure
-- `index.html` : accueil
-- `boutique.html` : la boutique, rend les produits depuis `products.json`
-- `convoi.html` : la branche communauté
-- `depot.html` : galerie, tutos, news
-- `products.json` : LA source des produits. Pour ajouter un produit : ajouter un objet `{"id","name","type" ("digital"|"physique"),"price","status","desc"}` puis push, Netlify redéploie tout seul.
-- `img/` : visuels.
+1. **La Boutique** — produits viraux (tech, déco, gaming, mode, digital), nouveautés tous les 2 jours, catégories créées par la communauté, ouverte aux vendeurs. Vitrine en attendant PayPal.
+2. **Le Labo** — outils et mini-apps gratuits (convertisseurs, trackers, générateurs), réunis au même endroit.
+3. **Le Club** — la communauté : drops limités, défis, galeries des membres, mur des idées, events.
 
-## Enrichissement automatique
-Toutes les 2 jours : ajouter 1 à 10 produits viraux dans `products.json` (digitaux ET physiques), sans dépenser un euro, puis commit + push. Les images de produits arrivent plus tard (photos réelles de Carl).
+Pages : `index.html`, `boutique.html`, `labo.html`, `club.html` (+ `convoi.html`/`depot.html` qui redirigent).
+Design : fond #14161a, accent ambre #f0b429, Anton + Inter. Produits dans `products.json`, rendus par `script.js`.
+
+Déploiement : Netlify (upload du zip), hébergement officiel.

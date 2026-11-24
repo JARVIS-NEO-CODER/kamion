@@ -52,3 +52,5 @@ ul.list{margin:14px 0 0 20px;color:var(--mut)}
 ul.list li{margin:8px 0}
 footer{padding:38px 0;color:var(--mut);font-size:13px}
 @media(max-width:640px){nav .wrap{gap:14px}nav a.navlink{font-size:11px}}
+
+.cat{opacity:.55;font-size:12px;margin:6px 0 0}

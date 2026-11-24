@@ -9,7 +9,7 @@ async function loadProducts(){
     items.filter(p => filter === 'all' || p.type === filter).forEach(p => {
       const el = document.createElement('article');
       el.className = 'card';
-      el.innerHTML = '<div class="ph" data-mark="KAMION"></div><div class="body"><h4>' + p.name + '</h4><p class="desc">' + p.desc + '</p><div class="row"><span class="price">' + p.price + '</span><span class="tagpill">' + p.status + '</span></div><button class="btn buy" data-id="' + p.id + '">Commander</button></div>';
+      el.innerHTML = '<div class="ph" data-mark="TOUTIC"></div><div class="body"><h4>' + p.name + '</h4><p class="desc">' + p.desc + '</p><div class="row"><span class="price">' + p.price + '</span><span class="tagpill">' + p.status + '</span></div><p class="cat">' + p.cat + '</p><button class="btn buy" data-id="' + p.id + '">Commander</button></div>';
       grid.appendChild(el);
     });
   }

@@ -1,98 +1,110 @@
 [
   {
-    "id": "skin-perso",
-    "name": "Skin perso — ton camion, ta peinture",
+    "id": "pack-50-presets",
+    "name": "Pack 50 presets photo « Ciné »",
     "type": "digital",
-    "price": "15 €",
+    "cat": "Digital & Créa",
+    "price": "6,90 €",
     "status": "dispo",
-    "desc": "Une skin complète peinte à la main sur ton camion au choix (Scania, Volvo, MAN, DAF...). Tu décris, on livre."
+    "desc": "50 presets pour Lightroom et GIMP qui donnent un look cinéma à tes photos en un clic."
   },
   {
-    "id": "tuning-custom",
-    "name": "Tuning custom",
+    "id": "pack-templates-cv",
+    "name": "Pack templates CV & Canva (20)",
     "type": "digital",
-    "price": "10 €",
+    "cat": "Digital & Créa",
+    "price": "4,90 €",
     "status": "dispo",
-    "desc": "Phares, feux, plaques, accessoires : on règle ton camion pour qu'il ressemble à toi."
+    "desc": "20 modèles de CV et presentation modifiables dans Canva, du plus sobre au plus osé."
   },
   {
-    "id": "pack-complet",
-    "name": "Pack complet skin + tuning",
+    "id": "ebook-produits-viraux",
+    "name": "Guide « Repérer les produits viraux »",
     "type": "digital",
-    "price": "25 €",
+    "cat": "Digital & Créa",
+    "price": "9,90 €",
     "status": "dispo",
-    "desc": "La skin, le tuning et la plaque assortis. Le combo complet, prêt à rouler."
+    "desc": "La méthode pas à pas pour trouver ce qui explose sur les réseaux avant tout le monde."
   },
   {
-    "id": "skin-template",
-    "name": "Skin à la demande sur template",
+    "id": "pack-100-wallpapers",
+    "name": "Pack 100 wallpapers 4K",
     "type": "digital",
-    "price": "12 €",
+    "cat": "Digital & Créa",
+    "price": "2,90 €",
     "status": "dispo",
-    "desc": "Tu envoies une idée ou une image, on la transpose sur un template propre, prête à installer."
+    "desc": "100 fonds d'écran 4K : dark tech, néon, paysages. Pour PC, tablette et téléphone."
   },
   {
-    "id": "guide-premiere-skin",
-    "name": "Guide PDF « Ma première skin ETS2 »",
-    "type": "digital",
-    "price": "5 €",
-    "status": "dispo",
-    "desc": "Le guide pas à pas : de GIMP au jeu, sans jargon. Pour apprendre à faire tes propres skins."
-  },
-  {
-    "id": "preset-couleurs",
-    "name": "Preset couleurs GIMP",
-    "type": "digital",
-    "price": "4 €",
-    "status": "dispo",
-    "desc": "Les réglages de couleurs utilisés pour les skins KAMION, prêts à charger dans GIMP."
-  },
-  {
-    "id": "drop-led",
-    "name": "Bande LED USB ambre — setup camion",
+    "id": "lampe-levitation",
+    "name": "Lampe lune en lévitation",
     "type": "physique",
+    "cat": "Maison & Déco",
+    "price": "24,90 €",
+    "status": "précommande",
+    "desc": "La lune qui flotte et tourne au-dessus de sa base. L'objet déco le plus filmé de TikTok."
+  },
+  {
+    "id": "mini-projecteur",
+    "name": "Mini projecteur portable HD",
+    "type": "physique",
+    "cat": "Tech & Gadgets",
+    "price": "39,90 €",
+    "status": "précommande",
+    "desc": "Un vrai home cinéma dans la poche : Wi-Fi, HDMI, jusqu'à 1080p. Soirées et plafond de chambre."
+  },
+  {
+    "id": "bande-led-rgb",
+    "name": "Bande LED RGB 5 m + télécommande",
+    "type": "physique",
+    "cat": "Tech & Gadgets",
     "price": "12,90 €",
     "status": "précommande",
-    "desc": "L'ambiance cabine dans ta chambre. Bande LED USB, longueur 2 m, couleur ambre KAMION."
+    "desc": "L'indispensable du setup : 5 m de LED RGB, 16 millions de couleurs, collée en deux minutes."
   },
   {
-    "id": "drop-tapis",
-    "name": "Tapis de souris XXL gaming",
+    "id": "coussin-peluche",
+    "name": "Coussin peluche géant (120 cm)",
     "type": "physique",
+    "cat": "Maison & Déco",
     "price": "19,90 €",
     "status": "précommande",
-    "desc": "Format XXL (900 × 400 mm), bord cousu, motif route de nuit KAMION."
+    "desc": "Le fameux coussin nuage en peluche ultra douce, format géant. Chambre et canapé."
   },
   {
-    "id": "drop-stickers",
-    "name": "Pack stickers KAMION",
+    "id": "tapis-xxl",
+    "name": "Tapis de souris XXL gaming",
     "type": "physique",
-    "price": "6,90 €",
-    "status": "précommande",
-    "desc": "10 stickers vinyle résistants : logo, convoi, routes. Pour le setup, la caisse, partout."
-  },
-  {
-    "id": "drop-porte-cles",
-    "name": "Porte-clés métal camion",
-    "type": "physique",
-    "price": "7,90 €",
-    "status": "précommande",
-    "desc": "Petit camion en métal massif, finition brossée. Grave à l'arrière sur demande."
-  },
-  {
-    "id": "drop-porte-telephone",
-    "name": "Support téléphone pour volant",
-    "type": "physique",
-    "price": "9,90 €",
-    "status": "précommande",
-    "desc": "Support universel qui se clipse sur le volant ou le bureau : télémétrie et GPS à portée d'œil."
-  },
-  {
-    "id": "drop-ventilateur",
-    "name": "Mini ventilateur USB dashboard",
-    "type": "physique",
+    "cat": "Gaming",
     "price": "14,90 €",
     "status": "précommande",
-    "desc": "Silencieux, inclinable, USB. Le petit détail qui change les longues sessions."
+    "desc": "900 × 400 mm, bord cousu, base antidérapante. Clavier + souris sur un seul tapis."
+  },
+  {
+    "id": "stickers-neon",
+    "name": "Stickers muraux néon personnalisés",
+    "type": "physique",
+    "cat": "Maison & Déco",
+    "price": "9,90 €",
+    "status": "précommande",
+    "desc": "Ton texte ou ton pseudo en faux néon à coller au mur. Sans fil, sans electricien."
+  },
+  {
+    "id": "mini-ventilo",
+    "name": "Mini ventilateur USB silencieux",
+    "type": "physique",
+    "cat": "Tech & Gadgets",
+    "price": "8,90 €",
+    "status": "précommande",
+    "desc": "Silencieux, inclinable, USB. Le détail qui change les longues sessions de jeu ou de devoirs."
+  },
+  {
+    "id": "porte-cles-localisateur",
+    "name": "Porte-clés localisateur Bluetooth",
+    "type": "physique",
+    "cat": "Tech & Gadgets",
+    "price": "11,90 €",
+    "status": "précommande",
+    "desc": "Tu perds tout ? Sonne depuis ton téléphone et retrouve tes clés en 10 secondes."
   }
 ]
