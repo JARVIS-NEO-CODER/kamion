@@ -48,12 +48,17 @@
   <h3 style="margin-top:26px">Ajouter un produit</h3>
   <form name="nouveau-produit" method="POST" data-netlify="true" style="max-width:560px">
    <input type="hidden" name="form-name" value="nouveau-produit">
+   <input type="hidden" name="mode" id="np-mode" value="ajout">
+   <input type="hidden" name="id" id="np-id" value="">
    <label for="np-nom">Nom du produit</label><input id="np-nom" name="nom" required>
-   <label for="np-cat">Catégorie (Tech, Déco, Gaming, Mode, Digital & Créa…)</label><input id="np-cat" name="categorie" required>
+   <label for="np-cat">Catégorie (Tech, Déco, Gaming, Mode, Digital &amp; Créa…)</label><input id="np-cat" name="categorie" required>
    <label for="np-prix">Prix</label><input id="np-prix" name="prix" required placeholder="19,90 €">
+   <label for="np-fourn">Fournisseur (nom, laisse vide si démo)</label><input id="np-fourn" name="fournisseur" placeholder="ex. AliExpress">
+   <label for="np-lien">Lien vers le produit chez le fournisseur</label><input id="np-lien" name="lien-fournisseur" type="url" placeholder="https://…">
    <label for="np-desc">Description</label><textarea id="np-desc" name="description" required></textarea>
-   <button class="btn wide" type="submit">Envoyer la demande</button>
-   <p class="note">La demande part par email à l'admin, le produit est ajouté à la boutique ensuite.</p>
+   <button class="btn wide" type="submit" id="np-send">Envoyer la demande</button>
+   <button class="btn ghost wide hidden" type="button" id="np-cancel">Annuler la modification</button>
+   <p class="note">La demande part par email à l'admin : ajout d'un nouveau produit ou modification d'un produit existant, appliquée ensuite sur le site.</p>
   </form>
 
   <h3 style="margin-top:26px">Tickets &amp; messages</h3>
