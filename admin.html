@@ -44,7 +44,7 @@
    <div class="stat"><b>3</b><span>Défis ouverts</span></div>
   </div>
   <h3>Les produits</h3>
-  <table class="pt"><tbody id="prodRows"></tbody></table>
+  <table class="pt"><thead><tr><th></th><th>Produit</th><th>Catégorie</th><th>Prix</th><th>Fournisseur</th></tr></thead><tbody id="prodRows"></tbody></table>
   <h3 style="margin-top:26px">Ajouter un produit</h3>
   <form name="nouveau-produit" method="POST" data-netlify="true" style="max-width:560px">
    <input type="hidden" name="form-name" value="nouveau-produit">
@@ -87,9 +87,37 @@ function showDash(u){
  fetch('products.json').then(r=>r.json()).then(items=>{
   $('stProd').textContent=items.length;
   $('stCat').textContent=new Set(items.map(p=>p.cat)).size;
-  $('prodRows').innerHTML=items.map(p=>'<tr><td>'+(p.img?'<img src="'+p.img+'" alt="">':'—')+'</td><td>'+p.name+'</td><td>'+p.cat+'</td><td>'+p.price+'</td></tr>').join('');
+window.PRODS=items;
+  $('prodRows').innerHTML=items.map((p,i)=>'<tr class="prow" data-i="'+i+'" title="Cliquer pour modifier"><td>'+(p.img?'<img src="'+p.img+'" alt="">':'—')+'</td><td>'+p.name+'</td><td>'+p.cat+'</td><td>'+p.price+'</td><td>'+(p.fourn?p.fourn:'<i>démo</i>')+'</td></tr>').join('');
+  document.querySelectorAll('.prow').forEach(tr=>tr.addEventListener('click',()=>startEdit(+tr.dataset.i)));
  });
 }
+function startEdit(i){
+ const p=window.PRODS[i];
+ $('np-mode').value='modif';$('np-id').value=p.id||'';
+ $('np-nom').value=p.name||'';$('np-cat').value=p.cat||'';$('np-prix').value=p.price||'';
+ $('np-fourn').value=p.fourn||'';$('np-lien').value=p.lien||'';
+ $('np-desc').value=p.desc||'';
+ $('np-send').textContent='Enregistrer les modifications';
+ $('np-cancel').classList.remove('hidden');
+ document.querySelector('form[name="nouveau-produit"]').scrollIntoView({behavior:'smooth'});
+}
+function resetForm(){
+ $('np-mode').value='ajout';$('np-id').value='';
+ document.querySelector('form[name="nouveau-produit"]').reset();
+ $('np-send').textContent='Envoyer la demande';
+ $('np-cancel').classList.add('hidden');
+}
+$('np-cancel').addEventListener('click',resetForm);
+document.querySelector('form[name="nouveau-produit"]').addEventListener('submit',e=>{
+ e.preventDefault();
+ const f=new FormData(e.target);
+ fetch('/',{method:'POST',body:f}).then(()=>{
+  toast($('np-mode').value==='modif'?'Modification envoyée, elle sera appliquée sur le site':'Demande envoyée, produit ajouté à la boutique ensuite');
+  resetForm();
+ }).catch(()=>toast('Envoi impossible, réessaie'));
+});
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3500);}
 if(window.netlifyIdentity){
  netlifyIdentity.on('init',u=>{if(u)showDash(u);});
  netlifyIdentity.on('login',u=>{if(u&&u.email===ADMIN){showDash(u);}else if(u){$('idErr').textContent="Ce compte n'est pas admin.";netlifyIdentity.logout();}});
