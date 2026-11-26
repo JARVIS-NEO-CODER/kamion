@@ -12,6 +12,7 @@ function backInit(){const b=document.createElement('button');b.id='backBtn';b.cl
  document.body.appendChild(b);}
 
 async function loadCatalog(){
+ try{const r=await fetch('https://raw.githubusercontent.com/JARVIS-NEO-CODER/toutic-catalog/main/products.json',{cache:'no-store'});if(r.ok)return await r.json();}catch(e){}
  try{const r=await fetch('/api/products');if(r.ok)return await r.json();}catch(e){}
  const r=await fetch('products.json');return await r.json();
 }
