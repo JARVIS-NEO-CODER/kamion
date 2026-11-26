@@ -44,11 +44,23 @@
    <div class="stat"><b>8</b><span>Outils au Labo</span></div>
    <div class="stat"><b>3</b><span>Défis ouverts</span></div>
   </div>
+
+  <div class="tool" id="catConn" style="margin-top:18px">
+   <p class="hint"><b>Catalogue en direct</b> : le formulaire d'ajout enregistre le produit directement sur le site, sans redéploiement. Il faut connecter le catalogue une seule fois : colle ton token GitHub ici, il reste dans ce navigateur (jamais dans le code du site).</p>
+   <div class="mini" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px">
+    <input id="ghTok" type="password" placeholder="Token GitHub (github_pat_…)" style="flex:1;min-width:210px">
+    <button class="btn small" id="ghSave">Connecter le catalogue</button>
+    <button class="btn ghost small hidden" id="ghForget">Oublier</button>
+    <span class="note" id="ghState"></span>
+   </div>
+   <p class="note" style="margin-top:8px">Pas encore de token ? Crée-le en 1 minute : <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a> — « Only select repositories » : <b>toutic-catalog</b>, Permissions → « Contents » : <b>Read and write</b>, puis Generate et copie-colle ici.</p>
+  </div>
+
   <h3>Les produits</h3>
   <table class="pt"><thead><tr><th></th><th>Produit</th><th>Catégorie</th><th>Prix</th><th>Fournisseur</th></tr></thead><tbody id="prodRows"></tbody></table>
+
   <h3 style="margin-top:26px">Ajouter un produit</h3>
-  <form name="nouveau-produit" method="POST" data-netlify="true" style="max-width:560px">
-   <input type="hidden" name="form-name" value="nouveau-produit">
+  <form name="nouveau-produit" style="max-width:560px">
    <input type="hidden" name="mode" id="np-mode" value="ajout">
    <input type="hidden" name="id" id="np-id" value="">
    <label for="np-nom">Nom du produit</label><input id="np-nom" name="nom" required>
@@ -56,27 +68,24 @@
    <label for="np-prix">Prix</label><input id="np-prix" name="prix" required placeholder="19,90 €">
    <label for="np-fourn">Fournisseur (nom, laisse vide si démo)</label><input id="np-fourn" name="fournisseur" placeholder="ex. AliExpress">
    <label for="np-lien">Lien vers le produit chez le fournisseur</label><input id="np-lien" name="lien-fournisseur" type="url" placeholder="https://…">
+   <label for="np-img">Lien de l'image du produit</label><input id="np-img" name="img" type="url" placeholder="https://…">
    <label for="np-desc">Description</label><textarea id="np-desc" name="description" required></textarea>
-   <button class="btn wide" type="submit" id="np-send">Envoyer la demande</button>
+   <button class="btn wide" type="submit" id="np-send">Enregistrer sur le site</button>
    <button class="btn ghost wide hidden" type="button" id="np-cancel">Annuler la modification</button>
-   <p class="note">La demande part par email à l'admin : ajout d'un nouveau produit ou modification d'un produit existant, appliquée ensuite sur le site.</p>
+   <p class="note">Le produit est enregistré directement dans le catalogue en ligne : la boutique se met à jour en moins d'une minute. Si le catalogue n'est pas connecté (pas de token), la demande part par email à l'admin à la place.</p>
   </form>
 
   <h3 style="margin-top:26px">Tickets &amp; messages</h3>
   <div class="tool" style="margin-top:10px">
-   <p class="hint">Chaque ticket de support, commande et idée du mur arrive par email à l'admin, et reste consultable dans la boîte des formulaires. Les tickets arrivent aussi depuis la page support.</p>
+   <p class="hint">Les tickets de support et les commandes du panier arrivent par email à l'admin.</p>
    <div class="mini">
-    <a class="btn small" href="https://app.netlify.com/projects/toutic/forms" target="_blank" rel="noopener">Ouvrir la boîte des tickets</a>
-    <a class="btn ghost small" href="support.html">Page support du site</a>
+    <a class="btn small" href="support.html">Page support du site</a>
    </div>
   </div>
 
   <h3 style="margin-top:26px">Utilisateurs</h3>
   <div class="tool" style="margin-top:10px">
    <p class="hint">Les comptes du site sont sur invitation uniquement : la liste complète (invités, inscrits, confirmés) se gère dans l'espace utilisateurs. Invite quelqu'un et il reçoit un email pour créer son mot de passe.</p>
-   <div class="mini">
-    <a class="btn small" href="https://app.netlify.com/projects/toutic/manage/identity/people" target="_blank" rel="noopener">Voir la liste des utilisateurs</a>
-   </div>
   </div>
  </section>
 </main>
@@ -87,9 +96,13 @@
 <script src="script.js"></script>
 <script>
 const $=id=>document.getElementById(id);
-const ADMIN=atob('Y2FybHNvcXVldEBnbWFpbC5jb20=');
+const ADMIN='carlsoquet@gmail.com';
+const REPO='JARVIS-NEO-CODER/toutic-catalog';
 function showDash(u){
  $('loginArea').classList.add('hidden');$('dash').classList.remove('hidden');
+ refreshGh();refreshStats();
+}
+function refreshStats(){
  loadCatalog().then(items=>{
   $('stProd').textContent=items.length;
   $('stCat').textContent=new Set(items.map(p=>p.cat)).size;
@@ -98,11 +111,24 @@ window.PRODS=items;
   document.querySelectorAll('.prow').forEach(tr=>tr.addEventListener('click',()=>startEdit(+tr.dataset.i)));
  });
 }
+function refreshGh(){
+ const tok=localStorage.getItem('toutic_gh_token');
+ $('ghTok').classList.toggle('hidden',!!tok);
+ $('ghSave').classList.toggle('hidden',!!tok);
+ $('ghForget').classList.toggle('hidden',!tok);
+ $('ghState').textContent=tok?'Catalogue connecté ✓':'Catalogue non connecté';
+}
+$('ghSave').addEventListener('click',()=>{
+ const v=$('ghTok').value.trim();
+ if(!v){toast('Colle le token d\'abord');return;}
+ localStorage.setItem('toutic_gh_token',v);$('ghTok').value='';refreshGh();toast('Catalogue connecté, le formulaire enregistre direct');
+});
+$('ghForget').addEventListener('click',()=>{localStorage.removeItem('toutic_gh_token');refreshGh();toast('Token oublié');});
 function startEdit(i){
  const p=window.PRODS[i];
  $('np-mode').value='modif';$('np-id').value=p.id||'';
  $('np-nom').value=p.name||'';$('np-cat').value=p.cat||'';$('np-prix').value=p.price||'';
- $('np-fourn').value=p.fourn||'';$('np-lien').value=p.lien||'';
+ $('np-fourn').value=p.fourn||'';$('np-lien').value=p.lien||'';$('np-img').value=p.img||'';
  $('np-desc').value=p.desc||'';
  $('np-send').textContent='Enregistrer les modifications';
  $('np-cancel').classList.remove('hidden');
@@ -111,17 +137,36 @@ function startEdit(i){
 function resetForm(){
  $('np-mode').value='ajout';$('np-id').value='';
  document.querySelector('form[name="nouveau-produit"]').reset();
- $('np-send').textContent='Envoyer la demande';
+ $('np-send').textContent='Enregistrer sur le site';
  $('np-cancel').classList.add('hidden');
 }
 $('np-cancel').addEventListener('click',resetForm);
-document.querySelector('form[name="nouveau-produit"]').addEventListener('submit',e=>{
+function slug(s){
+ return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,40);
+}
+document.querySelector('form[name="nouveau-produit"]').addEventListener('submit',async e=>{
  e.preventDefault();
- const f=new FormData(e.target);
- fetch('/',{method:'POST',body:f}).then(()=>{
-  toast($('np-mode').value==='modif'?'Modification envoyée, elle sera appliquée sur le site':'Demande envoyée, produit ajouté à la boutique ensuite');
-  resetForm();
- }).catch(()=>toast('Envoi impossible, réessaie'));
+ const f=Object.fromEntries(new FormData(e.target).entries());
+ const tok=localStorage.getItem('toutic_gh_token');
+ if(!tok){
+  const corps='Nouveau produit TOUTIC%0D%0ANom : '+encodeURIComponent(f.nom)+'%0D%0ACatégorie : '+encodeURIComponent(f.categorie)+'%0D%0APrix : '+encodeURIComponent(f.prix)+'%0D%0AFournisseur : '+encodeURIComponent(f.fournisseur||'')+'%0D%0ALien : '+encodeURIComponent(f['lien-fournisseur']||'')+'%0D%0AImage : '+encodeURIComponent(f.img||'')+'%0D%0ADescription : '+encodeURIComponent(f.description||'');
+  window.location.href='mailto:'+ADMIN+'?subject='+encodeURIComponent('TOUTIC – demande produit : '+f.nom)+'&body='+corps;
+  toast('Catalogue non connecté : la demande part par email');
+  return;
+ }
+ $('np-send').disabled=true;$('np-send').textContent='Enregistrement…';
+ try{
+  const meta=await (await fetch('https://api.github.com/repos/'+REPO+'/contents/products.json?ref=main')).json();
+  if(!meta.content) throw new Error('catalogue illisible');
+  const items=JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(meta.content.replace(/\n/g,'')),c=>c.charCodeAt(0))));
+  const p={id:(f.mode==='modif'&&f.id)?f.id:slug(f.nom),name:f.nom,type:'physical',cat:f.categorie,price:f.prix,status:'Expédié par le fournisseur',desc:f.description,fourn:f.fournisseur||'',lien:f['lien-fournisseur']||'',img:f.img||''};
+  const i=items.findIndex(x=>x.id===p.id||(x.name||'').toLowerCase()===p.name.toLowerCase());
+  if(i>=0){items[i]=p;}else{items.push(p);}
+  const r=await fetch('https://api.github.com/repos/'+REPO+'/contents/products.json',{method:'PUT',headers:{'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json'},body:JSON.stringify({message:(f.mode==='modif'?'Modification produit ':'Ajout produit ')+p.name+' (admin TOUTIC)',content:btoa(unescape(encodeURIComponent(JSON.stringify(items,null,1)))),sha:meta.sha,branch:'main'})});
+  if(r.ok){toast(f.mode==='modif'?'Modifications enregistrées, en ligne dans 1 min':'Produit enregistré, en ligne dans 1 min');resetForm();refreshStats();}
+  else{const j=await r.json().catch(()=>({}));toast('Échec de l\'enregistrement : '+(j.message||r.status));}
+ }catch(err){toast('Erreur : '+(err&&err.message?err.message:'réessaie'));}
+ finally{$('np-send').disabled=false;$('np-send').textContent=f.mode==='modif'?'Enregistrer les modifications':'Enregistrer sur le site';}
 });
 function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3500);}
 if(window.netlifyIdentity){
