@@ -43,7 +43,7 @@
 <script>
 async function loadProduct(){
  const id=new URLSearchParams(location.search).get('id');
- const res=await fetch('products.json');const items=await res.json();
+ const items=await loadCatalog();
  const p=items.find(x=>x.id===id);
  const box=document.getElementById('pdp');
  if(!p){box.innerHTML='<p class="lead">Produit introuvable. <a href="boutique.html">Retour à la boutique</a></p>';return;}

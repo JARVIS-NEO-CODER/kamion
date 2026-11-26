@@ -10,8 +10,13 @@ function backInit(){const b=document.createElement('button');b.id='backBtn';b.cl
  b.addEventListener('click',()=>{let same=false;try{same=new URL(document.referrer).host===location.host}catch(e){}
  if(same)history.back();else location.href='/';});
  document.body.appendChild(b);}
+
+async function loadCatalog(){
+ try{const r=await fetch('/api/products');if(r.ok)return await r.json();}catch(e){}
+ const r=await fetch('products.json');return await r.json();
+}
 async function loadProducts(){
- const res=await fetch('products.json');const items=await res.json();
+ const items=await loadCatalog();
  const grid=document.getElementById('grid');const chips=document.querySelectorAll('.chip');
  let filter='all';
  function render(){
@@ -31,7 +36,7 @@ async function loadProducts(){
 }
 async function renderCart(){
  const list=document.getElementById('cartList');if(!list)return;
- const res=await fetch('products.json');const items=await res.json();
+ const items=await loadCatalog();
  const rows=cartItems().map(x=>items.find(p=>p.id===x.id)).filter(Boolean);
  const empty=document.getElementById('cartEmpty');const formBox=document.getElementById('orderBox');const tb=document.getElementById('cartTotalBox');
  if(!rows.length){list.innerHTML='';empty.style.display='block';formBox.style.display='none';if(tb)tb.style.display='none';return;}
@@ -54,7 +59,7 @@ async function orderSubmit(e){
  e.preventDefault();
  const prenom=document.getElementById('f-prenom').value.trim();const email=document.getElementById('f-email').value.trim();
  if(!prenom||!email){toast('Remplis ton prénom et ton email');return;}
- const res=await fetch('products.json');const items=await res.json();
+ const items=await loadCatalog();
  const rows=cartItems().map(x=>items.find(p=>p.id===x.id)).filter(Boolean);
  if(!rows.length){toast('Ton panier est vide');return;}
  let total=0;rows.forEach(p=>{let pr=parseFloat(p.price.replace(',','.'));if(!isNaN(pr))total+=pr;});

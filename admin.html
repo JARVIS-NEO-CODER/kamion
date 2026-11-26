@@ -57,9 +57,9 @@
    <label for="np-fourn">Fournisseur (nom, laisse vide si démo)</label><input id="np-fourn" name="fournisseur" placeholder="ex. AliExpress">
    <label for="np-lien">Lien vers le produit chez le fournisseur</label><input id="np-lien" name="lien-fournisseur" type="url" placeholder="https://…">
    <label for="np-desc">Description</label><textarea id="np-desc" name="description" required></textarea>
-   <button class="btn wide" type="submit" id="np-send">Envoyer la demande</button>
+   <button class="btn wide" type="submit" id="np-send">Enregistrer sur le site</button>
    <button class="btn ghost wide hidden" type="button" id="np-cancel">Annuler la modification</button>
-   <p class="note">La demande part par email à l'admin : ajout d'un nouveau produit ou modification d'un produit existant, appliquée ensuite sur le site.</p>
+   <p class="note">Enregistrement direct : le produit apparaît sur le site tout de suite, sans redéploiement.</p>
   </form>
 
   <h3 style="margin-top:26px">Tickets &amp; messages</h3>
@@ -90,7 +90,7 @@ const $=id=>document.getElementById(id);
 const ADMIN=atob('Y2FybHNvcXVldEBnbWFpbC5jb20=');
 function showDash(u){
  $('loginArea').classList.add('hidden');$('dash').classList.remove('hidden');
- fetch('products.json').then(r=>r.json()).then(items=>{
+ loadCatalog().then(items=>{
   $('stProd').textContent=items.length;
   $('stCat').textContent=new Set(items.map(p=>p.cat)).size;
 window.PRODS=items;
@@ -115,13 +115,25 @@ function resetForm(){
  $('np-cancel').classList.add('hidden');
 }
 $('np-cancel').addEventListener('click',resetForm);
-document.querySelector('form[name="nouveau-produit"]').addEventListener('submit',e=>{
+document.querySelector('form[name="nouveau-produit"]').addEventListener('submit',async e=>{
  e.preventDefault();
- const f=new FormData(e.target);
- fetch('/',{method:'POST',body:f}).then(()=>{
-  toast($('np-mode').value==='modif'?'Modification envoyée, elle sera appliquée sur le site':'Demande envoyée, produit ajouté à la boutique ensuite');
-  resetForm();
- }).catch(()=>toast('Envoi impossible, réessaie'));
+ const nom=$('np-nom').value.trim(),cat=$('np-cat').value.trim(),prix=$('np-prix').value.trim(),fourn=$('np-fourn').value.trim(),lien=$('np-lien').value.trim(),desc=$('np-desc').value.trim();
+ if(!nom||!cat||!prix||!desc){toast('Remplis au moins nom, catégorie, prix et description');return;}
+ const u=window.netlifyIdentity&&netlifyIdentity.currentUser();
+ if(!u){toast('Connecte-toi avec ton compte admin d'abord');return;}
+ let jwt;try{jwt=await u.jwt();}catch(err){toast('Connexion expirée, reconnecte-toi');return;}
+ const items=window.PRODS||[];
+ const modif=$('np-mode').value==='modif';
+ const pid=modif?($('np-id').value||('p-'+Date.now())):('p-'+Date.now());
+ const prod={id:pid,name:nom,type:'physical',cat:cat,price:prix,status:fourn?'Expédié par le fournisseur':'Produit démo',desc:desc,fourn:fourn||'',lien:lien||'',img:''};
+ let next;
+ if(modif){const i=items.findIndex(x=>x.id===pid);next=items.slice();if(i>=0)next[i]=prod;else next.unshift(prod);}
+ else next=[prod].concat(items);
+ try{
+  const r=await fetch('/api/products',{method:'POST',headers:{'content-type':'application/json','authorization':'Bearer '+jwt},body:JSON.stringify(next)});
+  if(r.ok){toast(modif?'Modifications enregistrées sur le site':'Produit ajouté sur le site !');resetForm();showDash(u);}
+  else toast('Enregistrement impossible ('+r.status+')');
+ }catch(err){toast('Enregistrement impossible, réessaie');}
 });
 function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3500);}
 if(window.netlifyIdentity){
