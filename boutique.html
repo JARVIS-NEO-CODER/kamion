@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>La Boutique — TOUTIC</title>
-<meta name="description" content="Produits viraux de partout : tech, déco, gaming, digital. Nouveautés tous les 2 jours. Tout le monde peut vendre sur TOUTIC.">
+<meta name="description" content="Produits viraux de partout : tech, déco, gaming, digital. Nouveautés toutes les 12 h. Tout le monde peut vendre sur TOUTIC.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -21,7 +21,7 @@
   <a href="labo.html">Le Labo</a>
   <a href="club.html">Le Club</a>
   <a href="admin.html">Admin</a>
-  <a href="boutique.html" id="cartLink">Panier (0)</a>
+  <a href="panier.html" id="cartLink">Panier (0)</a>
  </div>
 </div></nav>
 
@@ -41,6 +41,7 @@
    <button class="chip" data-filter="Tech">Tech</button>
    <button class="chip" data-filter="Déco">Déco</button>
    <button class="chip" data-filter="Gaming">Gaming</button>
+   <button class="chip" data-filter="Mode">Mode</button>
    <button class="chip" data-filter="Digital & Créa">Digital</button>
   </div>
   <div class="grid" id="grid"></div>
@@ -51,25 +52,6 @@
   <a class="btn" href="club.html">Proposer au Club</a>
  </section>
 </main>
-
-<div id="modal" role="dialog" aria-modal="true">
- <div class="box">
-  <h3>Commande</h3>
-  <img id="orderImg" alt="" style="width:100%;border-radius:10px;margin:8px 0;display:none">
-  <div class="row"><b id="orderName"></b><span class="price" id="orderPrice"></span></div>
-  <p class="sub">Paiement PayPal bientôt actif. En attendant, ton email sert de réservation : on te contacte pour finaliser.</p>
-  <form id="orderForm" name="commandes" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-   <input type="hidden" name="form-name" value="commandes">
-   <p class="hidden"><label>Ne pas remplir : <input name="bot-field"></label></p>
-   <label for="f-prenom">Prénom</label>
-   <input id="f-prenom" name="prenom" required autocomplete="given-name">
-   <label for="f-email">Email</label>
-   <input id="f-email" name="email" type="email" required autocomplete="email">
-   <button class="btn wide" type="submit">Envoyer ma commande</button>
-  </form>
-  <button class="btn ghost wide" id="closeModal" style="margin-top:10px">Annuler</button>
- </div>
-</div>
 
 <div id="toast"></div>
 

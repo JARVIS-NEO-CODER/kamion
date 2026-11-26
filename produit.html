@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Produit — TOUTIC</title>
+<meta name="description" content="Fiche produit TOUTIC : détails, fournisseur vérifiable, ajout au panier.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>if(/^#(invite_token|confirmation_token|recovery_token)=/.test(location.hash))location.replace("/admin/"+location.hash);</script>
+</head>
+<body>
+<nav><div class="wrap">
+ <a class="logo" href="/">TOUTIC<span>.</span></a>
+ <button id="menuBtn" aria-label="Menu">☰</button>
+ <div class="navlinks" id="navlinks">
+  <a href="/">Accueil</a>
+  <a href="boutique.html">Boutique</a>
+  <a href="labo.html">Le Labo</a>
+  <a href="club.html">Le Club</a>
+  <a href="admin.html">Admin</a>
+  <a href="panier.html" id="cartLink">Panier (0)</a>
+ </div>
+</div></nav>
+
+<main class="wrap">
+ <section>
+  <div class="pdp" id="pdp">
+   <p class="lead">Chargement…</p>
+  </div>
+ </section>
+</main>
+
+<div id="toast"></div>
+
+<footer><div class="wrap">
+ <a href="/">Accueil</a><a href="boutique.html">Boutique</a><a href="labo.html">Le Labo</a><a href="club.html">Le Club</a><a href="admin.html">Espace admin</a>
+ <p>© 2026 TOUTIC. Tout est là.</p>
+</div></footer>
+<script src="script.js"></script>
+<script>
+async function loadProduct(){
+ const id=new URLSearchParams(location.search).get('id');
+ const res=await fetch('products.json');const items=await res.json();
+ const p=items.find(x=>x.id===id);
+ const box=document.getElementById('pdp');
+ if(!p){box.innerHTML='<p class="lead">Produit introuvable. <a href="boutique.html">Retour à la boutique</a></p>';return;}
+ document.title=p.name+' — TOUTIC';
+ box.innerHTML=
+  '<div class="ph">'+(p.img?'<img src="'+p.img+'" alt="'+p.name+'">':'<div class="digi">'+p.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()+'</div>')+'</div>'
+  +'<div class="info">'
+  +'<span class="badge">'+p.cat+'</span>'
+  +'<h2>'+p.name+'</h2>'
+  +'<div class="bigprice">'+p.price+'</div>'
+  +'<span class="pill">'+p.status+'</span>'
+  +'<p class="desc">'+p.desc+'</p>'
+  +'<div class="fourn">Fournisseur : <b>'+p.fourn+'</b><br>'
+  +(p.priceUsd?'Prix chez le fournisseur : '+p.priceUsd+' (converti en euros au taux fixe 0,92)<br>':'')
+  +'<a href="'+p.lien+'" target="_blank" rel="noopener">Voir chez le fournisseur →</a></div>'
+  +'<button class="btn wide" id="addBtn">Ajouter au panier</button>'
+  +'<a class="btn ghost wide" href="panier.html" style="margin-top:10px">Voir le panier</a>'
+  +'</div>';
+ document.getElementById('addBtn').addEventListener('click',()=>{
+  const c=cartItems();
+  if(c.some(x=>x.id===p.id)){toast('Il est déjà dans ton panier');return;}
+  c.push({id:p.id,at:Date.now()});saveCart(c);
+  toast('Ajouté au panier !');
+ });
+}
+loadProduct();
+</script>
+</body>
+</html>

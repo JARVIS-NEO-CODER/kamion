@@ -1,9 +1,15 @@
-const CATS=['Tech','Déco','Gaming','Digital & Créa'];
+const CATS=['Tech','Déco','Gaming','Mode','Digital & Créa'];
 function toast(msg){const t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600);}
-function cartCount(){return JSON.parse(localStorage.getItem('toutic-cart')||'[]').length;}
+function cartItems(){return JSON.parse(localStorage.getItem('toutic-cart')||'[]');}
+function saveCart(c){localStorage.setItem('toutic-cart',JSON.stringify(c));updateCartLink();}
+function cartCount(){return cartItems().length;}
 function updateCartLink(){const l=document.getElementById('cartLink');if(l)l.textContent='Panier ('+cartCount()+')';}
 function initials(n){return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
 function productMedia(p){return p.img?'<img src="'+p.img+'" alt="'+p.name+'" loading="lazy">':'<div class="digi">'+initials(p.name)+'</div>';}
+function backInit(){const b=document.createElement('button');b.id='backBtn';b.className='backbtn';b.textContent='← Retour';
+ b.addEventListener('click',()=>{let same=false;try{same=new URL(document.referrer).host===location.host}catch(e){}
+ if(same)history.back();else location.href='/';});
+ document.body.appendChild(b);}
 async function loadProducts(){
  const res=await fetch('products.json');const items=await res.json();
  const grid=document.getElementById('grid');const chips=document.querySelectorAll('.chip');
@@ -16,39 +22,50 @@ async function loadProducts(){
     +'<div class="body"><h4>'+p.name+'</h4><p class="desc">'+p.desc+'</p>'
     +'<span class="pill">'+p.status+'</span>'
     +'<div class="row"><span class="price">'+p.price+'</span></div>'
-    +'<button class="btn wide" data-buy="'+p.id+'">Je le veux</button></div>';
+    +'<a class="btn wide" href="produit.html?id='+encodeURIComponent(p.id)+'">Voir le produit</a></div>';
    grid.appendChild(el);
   });
  }
  chips.forEach(c=>c.addEventListener('click',()=>{chips.forEach(x=>x.classList.remove('on'));c.classList.add('on');filter=c.dataset.filter;render();}));
  render();window.__products=items;
 }
-function openOrderModal(p){
- const m=document.getElementById('modal');if(!m)return;
- m.querySelector('#orderName').textContent=p.name;
- m.querySelector('#orderPrice').textContent=p.price;
- m.querySelector('#orderImg').src=p.img||'';
- m.querySelector('#orderImg').style.display=p.img?'block':'none';
- m.dataset.id=p.id;m.classList.add('open');
+async function renderCart(){
+ const list=document.getElementById('cartList');if(!list)return;
+ const res=await fetch('products.json');const items=await res.json();
+ const rows=cartItems().map(x=>items.find(p=>p.id===x.id)).filter(Boolean);
+ const empty=document.getElementById('cartEmpty');const formBox=document.getElementById('orderBox');const tb=document.getElementById('cartTotalBox');
+ if(!rows.length){list.innerHTML='';empty.style.display='block';formBox.style.display='none';if(tb)tb.style.display='none';return;}
+ empty.style.display='none';formBox.style.display='block';if(tb)tb.style.display='block';
+ let total=0;
+ list.innerHTML=rows.map(p=>{let pr=parseFloat(p.price.replace(',','.'));if(isNaN(pr))pr=0;total+=pr;
+  return '<div class="cartitem">'+(p.img?'<img src="'+p.img+'" alt="">':'<div class="digi digism">'+initials(p.name)+'</div>')
+   +'<div class="nm"><b>'+p.name+'</b><br><span class="tag">'+p.cat+' · '+p.status+'</span></div>'
+   +'<span class="pr">'+p.price+'</span><button data-remove="'+p.id+'">Retirer</button></div>';}).join('');
+ const tot=document.getElementById('cartTotal');if(tot)tot.textContent=total.toFixed(2).replace('.',',')+' €';
 }
 document.addEventListener('click',e=>{
- const b=e.target.closest('[data-buy]');
- if(b){const p=(window.__products||[]).find(x=>x.id===b.dataset.buy);if(p)openOrderModal(p);}
- if(e.target.id==='modal'||e.target.id==='closeModal'){const m=document.getElementById('modal');if(m)m.classList.remove('open');}
+ const r=e.target.closest('[data-remove]');
+ if(r){saveCart(cartItems().filter(x=>x.id!==r.dataset.remove));renderCart();}
 });
 function menuInit(){const btn=document.getElementById('menuBtn');const links=document.getElementById('navlinks');
  if(btn&&links)btn.addEventListener('click',()=>links.classList.toggle('open'));}
-menuInit();updateCartLink();
+menuInit();updateCartLink();backInit();
 async function orderSubmit(e){
  e.preventDefault();
- const m=document.getElementById('modal');const id=m.dataset.id;
- const name=m.querySelector('#f-prenom').value.trim();const email=m.querySelector('#f-email').value.trim();
- if(!name||!email){toast('Remplis ton prénom et ton email');return;}
- const body=new URLSearchParams(new FormData(e.target)).toString();
- body.set('form-name','commandes');body.set('produit',id);
+ const prenom=document.getElementById('f-prenom').value.trim();const email=document.getElementById('f-email').value.trim();
+ if(!prenom||!email){toast('Remplis ton prénom et ton email');return;}
+ const res=await fetch('products.json');const items=await res.json();
+ const rows=cartItems().map(x=>items.find(p=>p.id===x.id)).filter(Boolean);
+ if(!rows.length){toast('Ton panier est vide');return;}
+ let total=0;rows.forEach(p=>{let pr=parseFloat(p.price.replace(',','.'));if(!isNaN(pr))total+=pr;});
+ const fd=new FormData(e.target);
+ const body=new URLSearchParams();
+ body.set('form-name','commandes');body.set('prenom',prenom);body.set('email',email);
+ body.set('produits',rows.map(p=>p.id+' | '+p.name+' | '+p.price).join(' ;; '));
+ body.set('nb_produits',String(rows.length));
+ body.set('total',total.toFixed(2).replace('.',',')+' €');
  try{await fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:body.toString()});}catch(err){}
- localStorage.setItem('toutic-cart',JSON.stringify([...JSON.parse(localStorage.getItem('toutic-cart')||'[]'),{id:id,at:Date.now()}]));
- updateCartLink();m.classList.remove('open');e.target.reset();
+ saveCart([]);renderCart();e.target.reset();
  toast('Commande envoyée ! On te répond par email.');
 }
 document.addEventListener('submit',e=>{if(e.target.id==='orderForm')orderSubmit(e);});

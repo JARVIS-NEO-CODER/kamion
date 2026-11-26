@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ton panier — TOUTIC</title>
+<meta name="description" content="Ton panier TOUTIC : vérifie tes produits et envoie ta commande.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>if(/^#(invite_token|confirmation_token|recovery_token)=/.test(location.hash))location.replace("/admin/"+location.hash);</script>
+</head>
+<body>
+<nav><div class="wrap">
+ <a class="logo" href="/">TOUTIC<span>.</span></a>
+ <button id="menuBtn" aria-label="Menu">☰</button>
+ <div class="navlinks" id="navlinks">
+  <a href="/">Accueil</a>
+  <a href="boutique.html">Boutique</a>
+  <a href="labo.html">Le Labo</a>
+  <a href="club.html">Le Club</a>
+  <a href="admin.html">Admin</a>
+  <a href="panier.html" id="cartLink">Panier (0)</a>
+ </div>
+</div></nav>
+
+<header class="hero2">
+ <img src="img/boutique.png" alt="">
+ <div class="wrap">
+  <p class="kicker">Ton panier</p>
+  <h2>Récap et <em>commande</em></h2>
+ </div>
+</header>
+
+<main class="wrap">
+ <section>
+  <p class="lead">Vérifie tes produits, enlève ce que tu veux, puis envoie ta commande. Paiement PayPal bientôt actif : en attendant, ton email sert de réservation.</p>
+  <div id="cartEmpty" style="display:none">
+   <p class="lead">Ton panier est vide. <a href="boutique.html">Retour à la boutique</a></p>
+  </div>
+  <div id="cartList"></div>
+  <div id="cartTotalBox" style="display:none"><div class="total"><span>Total</span><span id="cartTotal">0,00 €</span></div></div>
+  <div id="orderBox" style="display:none">
+   <form id="orderForm" name="commandes" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="commandes">
+    <p class="hidden"><label>Ne pas remplir : <input name="bot-field"></label></p>
+    <label for="f-prenom">Prénom</label>
+    <input id="f-prenom" name="prenom" required autocomplete="given-name">
+    <label for="f-email">Email</label>
+    <input id="f-email" name="email" type="email" required autocomplete="email">
+    <button class="btn wide" type="submit" style="margin-top:16px">Envoyer ma commande</button>
+   </form>
+  </div>
+ </section>
+</main>
+
+<div id="toast"></div>
+
+<footer><div class="wrap">
+ <a href="/">Accueil</a><a href="boutique.html">Boutique</a><a href="labo.html">Le Labo</a><a href="club.html">Le Club</a><a href="admin.html">Espace admin</a>
+ <p>© 2026 TOUTIC. Tout est là.</p>
+</div></footer>
+<script src="script.js"></script>
+<script>renderCart();</script>
+</body>
+</html>
